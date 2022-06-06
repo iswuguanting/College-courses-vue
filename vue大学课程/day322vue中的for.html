@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>v-for</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--<p>{{list[0]}}</p>
+			<p>{{list[1]}}</p>
+			<p>{{list[2]}}</p>
+			<p>{{list[3]}}</p>
+			<p>{{list[4]}}</p>
+			<p>{{list[5]}}</p>-->
+			<!--item代表的是数组里面的每一项，index代表的是这一项在数组里面的索引（下标）-->
+			<!--迭代普通数组
+			<p v-for="(item,index) in list">值：{{item}}----索引:{{index}}</p>-->
+			<!--迭代数组对象:先拿到每个对象，再根据拿到的对象拿到对象属性的值
+			<p v-for="(user,index) in ObjList">id：{{user.id}}----姓名:{{user.name}}-----索引:{{index}}</p>-->
+			<!--迭代对象:通过键值对的方式拿到每个属性和属性对应的值
+			<p v-for="(val,key,index) in student">{{key}}:{{val}}----索引:{{index}}</p>-->
+			<!--迭代数字:10代表的是我们要迭代输出的次数-->
+			<p v-for="count in 10">循环的第{{count}}次</p>
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data: {
+					list:[1,2,3,4,5,6],
+					ObjList:[
+					    {id:1,name:'张三'},
+					    {id:2,name:'李四'},
+					    {id:3,name:'王五'},
+					    {id:4,name:'赵六'},
+					    {id:5,name:'孙七'}
+					],
+					student:{
+						stuNo:'20200601',
+						stuName:'张三',
+						sex:'男',
+						age:18,
+						stuClass:'软件技术6班'
+					}
+				},
+				methods: {
+					
+				}
+			})
+		</script>
+	</body>
+</html>

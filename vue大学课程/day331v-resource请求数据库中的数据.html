@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<script type="text/javascript" src="js/vue-resource-1.3.4.js" ></script>
+		<link rel="stylesheet" href="css/bootstrap-3.3.7.css" />
+	</head>
+	<body>
+		<div id="app">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+				     <h2 class="panel-title">用户管理</h2>
+				</div>
+				<div class="panel-body form-inline">
+					<label>name:
+						<input type="text" v-model="name" />
+					</label>
+					<label>phone:
+						<input type="text" v-model="phone" />
+					</label>
+					<label>email:
+						<input type="text" v-model="email" />
+					</label>
+					<input type="button" value="添加" class="btn btn-primary" @click="addUser" />
+					<!--<input type="button" value="get请求"  class="btn btn-primary" @click="getInfo" />-->
+				</div>
+				<table class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>name</th>
+							<th>phone</th>
+							<th>email</th>
+							<th>operaction</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="user in userList" :key="user.id">
+							<td>{{user.id}}</td>
+							<td>{{user.name}}</td>
+							<td>{{user.phone}}</td>
+							<td>{{user.email}}</td>
+							<td><a href="" @click.prevent="del(user.id)">删除</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script type="text/javascript">
+			//全局数据配置接口根域名
+			Vue.http.options.root = 'http://jsonplaceholder.typicode.com/users';
+			Vue.http.options.emulateJSON = true;  //启动手动提交form表单方式的请求
+			var vm=new Vue({
+				el: '#app',
+				data: {
+					name:'',
+					phone:'',
+					email:'',
+					userList:[
+					    /*{id:1,name:'张三',phone:'13922657489',email:'25421547@qq.com'},
+					    {id:2,name:'李四',phone:'13922657589',email:'25421527@qq.com'},
+					    {id:3,name:'王五',phone:'13922657689',email:'25421557@qq.com'}*/
+					]
+				},
+				created(){
+					this.getInfo();
+				},
+				methods:{
+					getInfo(){
+						this.$http.get('http://jsonplaceholder.typicode.com/users').then(result=>{
+							//注意:result就是我们请求只会回调的数据
+							//result.body和result.data都能拿到我们请求的数据，建议获取数据的时候用result.body
+							var result2 =result.body
+							console.log(result.body);
+							if(result.status===200){
+								this.userList=result.body;
+							}else{
+								alert("数据请求失败")
+							}
+						})
+					},
+					addUser(){
+						var adduser={address:null,company:null,email:this.email,id:11,name:this.name,phone:this.phone,username:null,website:null};
+						this.$http.post('',adduser).then(result=>{
+//							console.log("请求成功地状态码:"+result.status);
+                            if (result.status===201) {   //添加成功
+                            	this.getInfo();   //重新查找全部数据
+                            } else{
+                            	alert("数据添加请求失败");
+                            }
+						})
+					},
+					del(id){
+						this.$http.get(''+id).then(result=>{
+							if (result.status===200) {  //判断是否删除成功
+								this.getInfo();   //重新查找全部数据
+							} else{
+								alert('请求删除失败');
+							}
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

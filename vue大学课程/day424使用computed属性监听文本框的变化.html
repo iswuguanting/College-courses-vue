@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>使用computed属性监听文本框的变化</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="firstStr" />+
+			<input type="text" v-model="nextStr" />+
+			<input type="text" v-model="lastStr" />=
+			<!--在computed里面定义内容本质是属性，所以在调用的时候不能加上()-->
+			<input type="text" v-model="finalStr" />
+			<p>{{finalStr}}</p>
+			<p>{{finalStr}}</p>
+			<p>{{finalStr}}</p>
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					firstStr:'',
+					nextStr:'',
+					lastStr:''
+				},
+				methods:{},
+				computed:{
+					//在computed里面定义的属性会缓存到内存中使用的时候直接调用，不会重复触发这个属性函数的变化
+					'finalStr':function(){
+						console.log('调用finalStr属性');
+						//computed里面定义的属性要返回一个结果
+						return this.firstStr+'-'+this.nextStr+'-'+this.lastStr;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

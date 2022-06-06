@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>滚动</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="浪起来" @click="lang" />
+			<input type="button" value="不浪了" @click="langStop" />
+			<p>{{msg}}</p>
+		</div>
+		<script>
+			var vm=new Vue({
+				el: '#app',
+				data: {
+					msg: '猥琐发育，别浪~~~!',
+					intervalId: null        //將intervalId設置到date裡面，可以在不同的方法中對它進行操作
+				},
+				methods:{
+					lang(){
+						if(this.intervalId!=null)return;      //如果定时器不是空的，说明已经定时器正在执行，直接返回，不然它执行（多开）下面的定时器
+//						var _this=this;
+						this.intervalId=setInterval(()=>{
+							//console.log(this.msg);  通过this对象获取当前vue实例里面的变量或者方法
+							var start=this.msg.substring(0,1);  //substring:截取指定长度的字符串,下标从0开，0代表第一个字符串，包含前面的数字，不包含后面的
+							var end=this.msg.substring(1);      //截取后半部分的字符串
+							this.msg=end+start;
+						},400)
+					},
+					langStop(){
+						clearInterval(this.intervalId);
+						this.intervalId=null;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

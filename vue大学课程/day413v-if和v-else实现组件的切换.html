@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件切换</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="登录" @click="flag=true" />
+			<input type="button" value="注册" @click="flag=false" />
+			<login v-if="flag"></login>
+			<regiester v-else="flag"></regiester>
+		</div>
+		<template id="doLogin">
+			<h2>登录组件</h2>
+		</template>
+		<template id="doRegiester">
+			<h2>注册组件</h2>
+		</template>
+		<script type="text/javascript">
+			Vue.component('login',{
+				template: '#doLogin'
+			})
+			Vue.component('regiester',{
+				template: '#doRegiester'
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					flag:true
+				},
+				methods:{}
+			})
+		</script>
+	</body>
+</html>

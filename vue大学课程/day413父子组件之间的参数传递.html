@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>父子组件之间的参数传递</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--如果想要在子组件中使用父组件data中的数据，要使用绑定的方式，在调用子组件的时候，将父组件中的数据绑定给子组件-->
+			<coml v-bind:parentmsg="parmsg"></coml>
+		</div>
+		<template id="templ">
+			<div>
+				<h2 @click="change">{{parentmsg}}</h2>
+			</div>
+		</template>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					parmsg:'这是父组件的msg'
+				},
+				methods:{},
+				components:{
+					coml:{
+						template:'#templ',
+						data: function(){
+							return {
+								msg:'这是子组件里面的msg'
+							}
+						},
+						//注意：如果想在子组件中使用父组件传递过来的数据，要先将父组件传递过来的数据放到props里面先接收，才能够在子组件中使用
+						//父组件传递过来的参数，只读不可写
+						props:['parentmsg'],
+						methods:{
+							change(){
+//								this.parentmsg='改变父组件传递过来的值';
+							}
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

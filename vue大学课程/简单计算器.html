@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="n1" />
+			<select v-model="opt">
+				<option value="+">+</option>
+				<option value="-">-</option>
+				<option value="*">*</option>
+				<option value="/">/</option>
+			</select>
+			<input type="text" v-model="n2" />
+			<input type="button" value="=" @click="jisuan"/>
+			<input type="text"  v-model="result"/>
+		</div>
+		<script>
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					n1: 0,
+					opt: '+',
+					n2: 0,
+					result: 0
+				},
+				methods: {
+					jisuan(){
+						switch (this.opt){
+							case '+':
+							this.result=parseFloat(this.n1)+parseFloat(this.n2);
+								break;
+							case '-':
+								break;
+							case '*':
+								break;
+							case '/':
+								break;
+							default:
+								break;
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件切换</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="登录" @click="tName='login'" />
+			<input type="button" value="注册" @click="tName='regiester'" />
+			<!--component是vue中特有的用来展示组件的,is是用v-bind绑定，用来指定要展示组件的名称-->
+			<component :is="tName"></component>
+		</div>
+		<template id="doLogin">
+			<h2>登录组件</h2>
+		</template>
+		<template id="doRegiester">
+			<h2>注册组件</h2>
+		</template>
+		<script type="text/javascript">
+			Vue.component('login',{
+				template: '#doLogin'
+			})
+			Vue.component('regiester',{
+				template: '#doRegiester'
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					tName:'login'
+				},
+				methods:{}
+			})
+		</script>
+	</body>
+</html>

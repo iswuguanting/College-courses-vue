@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>小球</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<style type="text/css">
+			.boll{
+				width: 15px;
+				height: 15px;
+				border-radius: 50%;
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="动画" @click="flag=!flag" />
+			<transition @before-enter="boforeEnter" @enter="entering" @after-enter="afterEnter">
+				<div class="boll" v-show="flag"></div>
+			</transition>
+		</div>
+		<script>
+			var vm=new Vue({
+				el: '#app',
+				data: {
+					flag:false
+				},
+				methods: {
+					boforeEnter(el){
+						el.style.transform="translate(0,0)";
+					},
+					entering(el,done){
+						el.offsetWidth;   //el.offsetWidth;等同于刷新动画的运行效果
+						el.style.transition="all 0.8s ease";
+						el.style.transform="translate(850px,650px)";
+						done();   //done等同于afterEnter函数的调用
+					},
+					afterEnter(el){
+						this.flag=!this.flag
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

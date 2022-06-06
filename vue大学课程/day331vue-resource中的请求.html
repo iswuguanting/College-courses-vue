@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue-resource</title>
+		<!--Vue()-->
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<!--vue-resource依赖于Vue，所以它要在vue.js加载之后加载,vm.$http-->
+		<script type="text/javascript" src="js/vue-resource-1.3.4.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="get请求" @click="getInfo" />
+			<input type="button" value="post请求" @click="postInfo" />
+			<input type="button" value="json请求" @click="jsonpInfo" />
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					
+				},
+				methods:{
+					getInfo(){
+						this.$http.get('http://jsonplaceholder.typicode.com/users').then(result=>{
+							//注意:result就是我们请求只会回调的数据
+							//result.body和result.data都能拿到我们请求的数据，建议获取数据的时候用result.body
+							console.log(result.body);
+						})
+					},
+					postInfo(){
+						this.$http.post('http://jsonplaceholder.typicode.com/users',{},{emulateJSON:true}).then(result=>{
+							console.log(result.body);
+						});
+					},
+					jsonpInfo(){
+						this.$http.jsonp('http://jsonplaceholder.typicode.com/users').then(result=>{
+							console.log(result.body);
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

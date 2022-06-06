@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>过滤器</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--调用一个过滤器:{{msg|过滤器的名称}} -->
+			<h2>{{msg|msgFormat('最疯狂的','软件技术6班')}}</h2>
+			<!--一个插值表达式中，调用多个过滤器-->
+			<h2>{{msg|msgFormat('最疯狂的','软件技术6班')|msgFormat2}}</h2>
+		</div>
+		<script>
+			//过滤器的调用:{{name|'过滤器的名称'}}
+			//过滤器的定义：Vue.filter('过滤器的名称',function('要过滤的字符串'){})
+			Vue.filter('msgFormat',function(msg,arg,arg2){
+				return msg.replace(/最帅的/g,arg+arg2);
+			})
+			Vue.filter('msgFormat2',function(msg){
+				return msg+'过滤器2的软件技术6班';
+			})
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					msg:'魔镜啊魔镜，谁是世界上最帅的男人，我是不是最帅的'
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>

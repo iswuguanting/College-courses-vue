@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>在vue中使用样式</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<style type="text/css">
+			.red{
+			 color: red;
+			}
+			.thin{
+				font-weight: 200;
+			}
+			.italic{
+				font-style: italic;
+			}
+			.active{
+				letter-spacing: 0.5em;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!--<h1 class="red thin italic active">20软件技术6班</h1>-->
+			<!--以数组的方式绑定类对象，类对象要用单引号引起来-->
+			<!--<h1 :class="['red','thin','italic','active']">20软件技术6班</h1>-->
+			<!--在数组中使用三元表达式-->
+			<!--<h1 :class="['red','thin','italic',idActive?'active':'']">20软件技术6班</h1>-->
+			<!--对象里面的类，可以用单引号引起来，也可以不用-->
+			<!--<h1 :class="styleObj">20软件技术6班</h1>-->
+			<input type="button" value="toggle" @click="toggleActive" />
+			<h1 :class="['red','thin','italic',{active:flag}]">20软件技术6班</h1>
+		</div>
+		<script> 
+		   var vm=new Vue({
+		   	   el: '#app',
+		   	   data: {
+		   	   	idActive: false,
+		   	   	styleObj:{red:true,thin:true,italic:true,active:true},
+		   	   	flag: true
+		   	   },
+		   	   methods: {
+		   	   	toggleActive(){
+		   	   		this.flag=!this.flag
+		   	   	}
+		   	   }
+		   })
+		</script>
+	</body>
+</html>

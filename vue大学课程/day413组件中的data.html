@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>定义私有组件</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<coml></coml>
+		</div>
+		<template id="templ">
+			<div>
+				<h2>这是自定义的私有组件</h2>
+				<h2>{{msg}}</h2>
+			</div>
+		</template>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data: {},   
+				methods:{},
+				filters:{},
+				directives:{},
+				components:{   //定义私有组件
+					'coml':{
+						template: '#templ',
+						//注意：在vue实例中data是一个对象，但是在组件中data是一个函数
+						data:function(){
+							//注意：在组件中的data函数必须要返回一个对象
+							return {
+								//在组件中data的数据的使用和vue实例中的使用方式是一样的
+								msg:'组件中data的msg'
+							}
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

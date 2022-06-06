@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ref获取元素和组件</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="获取元素" @click="getElement" />
+			<h2 id="h2id" ref="myh2">20软件技术6班</h2>
+			<hr />
+			<coml ref='coml'></coml>
+		</div>
+		<script type="text/javascript">
+			var coml={
+				template:'<h2>子组件的h2标签</h2>',
+				data:function(){
+					return {
+						msg:'sonmsg'
+					}
+				},
+				methods:{
+					show(){
+						console.log('这个是子组件的方法');
+					}
+				}
+			}
+			var vm=new Vue({
+				el: '#app',
+				data: {},
+				methods:{
+					getElement(){
+//						console.log(document.getElementById("h2id").innerHTML);
+						//console.log(this.$refs.myh2.innerText);
+						//console.log(this.$refs.coml.msg);   //调用子组件中的属性
+						this.$refs.coml.show();
+					}
+				},
+				components:{
+					coml
+				}
+			})
+		</script>
+	</body>
+</html>

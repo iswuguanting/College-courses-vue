@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--第一个文本框输入姓氏，第二个文本框输入名字，第三个文本框得到姓名-->
+			<input type="text" v-model="firtStr"/>+
+			<input type="text" v-model="lastStr"/>=
+			<input type="text" v-model="finalName"/>
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					firtStr:'',
+					lastStr:'',
+					finalName:''
+				},
+				methods:{},
+				watch:{  //监听data中的数据
+					'firtStr':function(newVal,oldVal){
+//						console.log('第一个数据发生了变化');
+						//this.finalName=this.firtStr+this.lastStr;
+						console.log(newVal+'----'+oldVal);
+						this.finalName=newVal+this.lastStr;
+					},
+					'lastStr':function(newVal){
+						this.finalName=this.firtStr+newVal;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

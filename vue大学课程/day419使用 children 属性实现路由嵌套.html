@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>使用 children 属性实现路由嵌套</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<script type="text/javascript" src="js/vue-router-3.0.1.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="acount">account</router-link>
+			<router-view></router-view>
+		</div>
+		<template id="acounttempl">
+			<div>
+				<h2>Account组件</h2>
+				<router-link to="/acount/login">登录</router-link>
+				<router-link to="/acount/register">注册</router-link>
+				<router-view></router-view>
+			</div>
+		</template>
+		<script type="text/javascript">
+			var acount={
+				template:'#acounttempl'
+			}
+			var login={
+				template:'<h3>登录组件</h3>'
+			}
+			var register={
+				template:'<h3>注册组件</h3>'
+			}
+			var router=new VueRouter({
+				routes:[
+				   {path:'/',redirect:'/acount'},
+				   {
+				   	path:'/acount',
+				   	component:acount,
+				    children:[
+				    	{path:'login',component:login},
+				   		{path:'register',component:register}
+				    ]
+				   }
+				   /*{path:'/login',component:login},
+				   {path:'/register',component:register}*/
+				]
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{},
+				methods:{},
+				router
+			})
+		</script>
+	</body>
+</html>

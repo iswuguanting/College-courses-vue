@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>使用route中query传递参数</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<script type="text/javascript" src="js/vue-router-3.0.1.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="/login?id=1&name=张三">登录</router-link>
+			<router-link to="/register">注册</router-link>
+			<router-view></router-view>
+		</div>
+		<template id="login">
+			<h2>登录组件--{{$route.query.id}}---{{$route.query.name}}</h2>
+		</template>
+		<template id="register">
+			<h2>注册组件</h2>
+		</template>
+		<script type="text/javascript">
+			var login={
+				template:'#login',
+				data:function(){
+					return {
+						msg:'子组件msg'
+					}
+				},
+				methods:{
+					show(){
+						console.log('子组件中的方法');
+					}
+				},
+				created(){
+//					console.log(this.$route);
+				}
+			}
+			var register={
+				template:'#register'
+			}
+			var  router=new VueRouter({
+				routes:[
+					{path:'/',redirect:'/login'},
+					{path:'/login',component:login},
+					{path:'/register',component:register}
+					]
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{},
+				methods:{},
+				router
+			})
+		</script>
+	</body>
+</html>

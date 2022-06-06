@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>v-for中key的问题</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<label>id：
+				     <input type="text" v-model="id"/>
+				</label>
+				<label>姓名：
+				     <input type="text" v-model="name"/>
+				</label>
+				<input type="button" value="添加" @click="addUser" />
+			</div>
+			<!--key要用v-bind绑定,key的值只能是string/number,
+				在组件中，使用v-for循环的时候，或者在一些特殊情况中 ，如果v-for 有问题，必须在使用v-for 的同时，指定唯一 的字符串/数字类型-->
+			<p v-for="user in userList" :key="user.id">
+				<input type="checkbox" />
+				{{user.id}}.{{user.name}}
+			</p>
+		</div>
+		<script>
+			var vm=new Vue({
+				el: '#app',
+				data: {
+					id:'',
+					name: '',
+					userList:[
+					    {id:1,name:'张飞'},
+					    {id:2,name:'赵云'},
+					    {id:3,name:'黄忠'},
+					    {id:4,name:'关羽'},
+					    {id:5,name:'马超'}
+					]
+				},
+				methods:{
+					addUser(){
+//						this.userList.push({id:this.id,name:this.name})        push()往数组后面追加一个元素
+						this.userList.unshift({id:this.id,name:this.name})    //unshift()往数组前面追加一个元素
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>过滤器</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<link rel="stylesheet" href="css/bootstrap-3.3.7.css" />
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" class="form-control" style="width: 500px;" v-model="msg" />
+			<h2>{{msg|strFormat|strFormat2}}</h2>
+		</div>
+		<script>
+			Vue.filter('strFormat',function(msg){
+				return msg.replace(/小学生/g,'***');
+			})
+			Vue.filter('strFormat2',function(msg){
+				return msg.replace(/菜/g,'*');
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					msg: ''
+				},
+				methods:{}
+			})
+		</script>
+	</body>
+</html>

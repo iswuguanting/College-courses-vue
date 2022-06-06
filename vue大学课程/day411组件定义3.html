@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件定义3</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--使用组件：直接将组件名称以标签的形式放入到页面中
+				注意：如果组件的命名是以驼峰命名法命名，在使用组件的时候记得在大写的字母和之前的小写字母前面加-
+				           如果不是以驼峰命名法命名，就直接把组件名字当成标签在页面中使用就可以了
+			-->
+			<my-coml></my-coml>
+		</div>
+		<div id="app2">
+			<!--使用组件：直接将组件名称以标签的形式放入到页面中
+				注意：如果组件的命名是以驼峰命名法命名，在使用组件的时候记得在大写的字母和之前的小写字母前面加-
+				           如果不是以驼峰命名法命名，就直接把组件名字当成标签在页面中使用就可以了
+			-->
+			<my-coml></my-coml>
+		</div>
+		<template id="templ">
+			<div>
+				<h2>这template组件</h2>
+				<h2>软件技术6班</h2>
+			</div>
+		</template>
+		<script type="text/javascript">
+			//3组件定义Vue.component('组件名称',{template:'要实现的组件效果'})
+			Vue.component('myComl',{
+				//注意：组件里面只能有一个根元素
+				template:'#templ'
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					
+				},
+				methods:{
+					
+				}
+			})
+			var vm2=new Vue({
+				el: '#app2',
+				data:{
+					
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>

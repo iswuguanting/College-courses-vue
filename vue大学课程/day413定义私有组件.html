@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>定义私有组件</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<coml></coml>
+		</div>
+		<template id="templ">
+			<div>
+				<h2>这是自定义的私有组件</h2>
+			</div>
+		</template>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data: {},
+				methods:{},
+				filters:{},
+				directives:{},
+				components:{   //定义私有组件
+					'coml':{
+						template: '#templ'
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>父子组件之间的方法传递</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--如果想要在子组件中使用父组件data中的数据，要使用绑定的方式，在调用子组件的时候，将父组件中的数据绑定给子组件-->
+			<coml @paranfun="show"></coml>
+		</div>
+		<template id="templ">
+			<div>
+				<h2 @click="dyparfun">这是子组件模板</h2>
+			</div>
+		</template>
+		<script type="text/javascript">
+			var coml={
+				template:'#templ',
+				data: function(){
+					return {
+						name:'张三'
+					}
+				},
+				methods:{
+					dyparfun(){
+						//this.$emit('父组件传递过的方法对象名')
+						this.$emit('paranfun',this.name);
+					}
+				}
+			}
+			var vm=new Vue({
+				el: '#app',
+				data:{
+				},
+				methods:{
+				    show(data2){
+				    	console.log("这是父组件的方法"+data2)
+				    }
+				},
+				components:{
+					coml:coml
+				}
+			})
+		</script>
+	</body>
+</html>

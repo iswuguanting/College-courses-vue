@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>品牌管理</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<link rel="stylesheet" href="css/bootstrap-3.3.7.css" />
+	</head>
+	<body>
+		<div id="app">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h2 class="panel-title">添加品牌</h2>
+				</div>
+				<div class="panel-body form-inline">
+					<label>id:
+						<input type="text" class="form-control" v-model="id" />
+					</label>
+					<label>name:
+						<input type="text" class="form-control" v-model="name" @keyup.f2="addCar" />
+					</label>
+					<input type="button" value="添加" class="btn btn-primary" @click="addCar" />
+					<label>根据关键字查找:
+						<input type="text" class="form-control" v-model="keywords" id="search" v-focus v-color="'pink'"/>
+					</label>
+				</div>
+				<table class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<td>id</td>
+							<td>name</td>
+							<td>ctime</td>
+							<td>opreation</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="car in search(keywords)">
+							<td>{{car.id}}</td>
+							<td>{{car.name}}</td>
+							<td>{{car.ctime|dateFormat}}</td>
+							<td><a href="" @click.prevent="del(car.id)">删除</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div id="app2">
+			<h2 v-fontweight='900' v-fontsize="'60px'">{{dt|dateFormat}}</h2>
+		</div>
+		<script type="text/javascript">
+			 //全局过滤器
+			Vue.filter('dateFormat',function(dateStr){
+				var dt=new Date(dateStr);   //获取传过来的时间
+				var y=dt.getFullYear();   //获取4位数的年份
+				var m=(dt.getMonth()+1).toString().padStart(2,'0');    //获取月份，因为月份0-11代表1-12月份，所以要加1
+				var d=dt.getDate().toString().padStart(2,'0');       //获取当前是这个月的第几号
+				var hh=dt.getHours().toString().padStart(2,'0');
+				var mm=dt.getMinutes().toString().padStart(2,'0');
+				var ss=dt.getSeconds().toString().padStart(2,'0');
+//				return y+'-'+m+'-'+d+'  '+hh+':'+mm+':'+ss;
+                return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+			})
+			//自定义按键修饰符,语法：Vue.config.keyCodes.自定义名称=按键码;
+			Vue.config.keyCodes.f2=113;
+			//定义全局指令:Vue.directive(指令名称,{钩子函数:function(el){}});
+			Vue.directive('focus',{
+				bind:function(el){   //初始化的时候起作用
+//					el.focus();
+				},
+				inserted:function(el){   //渲染到页面的时候起作用
+					el.focus();
+				}
+			});
+			Vue.directive('color',{
+				bind:function(el,binding){
+					//修改样式，在初始化的时候就应该编译，在钩子函数里面写的样式哦，会自动变成这个元素的内联样式
+					el.style.color=binding.value;
+					console.log('指令名称:'+binding.value);
+				},
+				inserted:function(el){   //渲染到页面的时候起作用
+//					el.style.color="red";
+				}
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					id:'',
+					name:'',
+					keywords:'',
+					carList:[
+					   {id:1,name:'奔驰',ctime:new Date()},
+					   {id:2,name:'宝马',ctime:new Date()},
+					   {id:3,name:'奥迪',ctime:new Date()},
+					]
+				},
+				methods:{
+					addCar(){
+						var car={id:this.id,name:this.name,ctime:new Date()}   // 获取前端传过来要添加的对象
+						this.carList.push(car);
+						this.id='';
+						this.name='';
+					},
+					del(id){
+						/*this.carList.some((car,i)=>{  //some方法在数组里面找是否存在这个元素
+							if (car.id==id) {     //判断我们要删除的品牌的id在数组里面是否存在
+								this.carList.splice(i,1);    //splice()删除或者王数组里面添加元素splice(要删除的值的索引，要删除多少个数据，要添加的数据)
+								return true;
+							}
+						})*/
+						var index=this.carList.findIndex(car=>{   //findIndex()查找数组里面是否存在这个元素，如果存在就返回当前要查找元素的下标（索引）
+							if (car.id==id) {  //判断我们要删除的品牌的id在数组里面是否存在
+								return true;    //如果存在就返回这个要查找元素的下标
+							}
+						})
+						this.carList.splice(index,1);    //将查找到的元素删除
+					},
+					search(keywords){
+						/*var newlist=[];
+						this.carList.forEach(car=>{   //迭代输出数组中全部对象
+							//indexOf('要查找的字符')用来查找某个字符串里面是否存在某个字符,如果方法返回-1，就说明在字符串里面不存在我们要查找的字符
+							if(car.name.indexOf(keywords)!=-1){  //判断哪个名字包含搜索的关键字
+								newlist.push(car);
+							}
+						})
+						return newlist;  //将得到的包含关键字的车名的新数组对象返回*/
+						return this.carList.filter(car=>{
+							//if (car.name.indexOf(keywords)!=-1) {  如果查找的结果不等于-1就说明这个字符串包含了我们要查找的关键字
+							if(car.name.includes(keywords)){ //includes()查找字符串里面是否包含某个字符，如果包含返回true，否则返回false
+								return car;  //将符合条件的car返回给filter对象
+							}
+						})
+					}
+				}
+			})
+		    var vm2=new Vue({
+		    	el: '#app2',
+		    	data:{
+		    		dt:new Date()
+		    	},
+		    	methods:{
+		    		
+		    	},
+		    	filters:{  //定义私有（局部）过滤器
+		    		dateFormat:function(dateStr){  //如果过滤器的名字相同在调用的时候，会采用最近原则，优先调用局部过滤器
+		    			var dt=new Date(dateStr);   //获取传过来的时间
+						var y=dt.getFullYear();   //获取4位数的年份
+						var m=dt.getMonth()+1;    //获取月份，因为月份0-11代表1-12月份，所以要加1
+						var d=dt.getDate();       //获取当前是这个月的第几号
+						var hh=dt.getHours();
+						var mm=dt.getMinutes();
+						var ss=dt.getSeconds();
+		//				return y+'-'+m+'-'+d+'  '+hh+':'+mm+':'+ss;
+		                return `${y}-${m}-${d} ${hh}:${mm}:${ss}--局部过滤器`;
+		    		}
+		    	},
+		    	//定义私有指令:directives:{'指令名称':{钩子函数:function(绑定元素){}}}
+		    	directives:{
+		    		'fontweight':{
+		    			bind:function(el,binding){
+		    				el.style.fontWeight=binding.value;
+		    			}
+		    		},
+		    		//指令的简写：指令名称function(el,binding){},简写的指令默认自动绑定到bind和update里面
+		    		'fontsize':function(el,binding){
+		    			el.style.fontSize=parseInt(binding.value)+'px';
+		    		}
+		    	}
+		    })
+//		    document.getElementById("search").focus();
+		</script>
+	</body>
+</html>

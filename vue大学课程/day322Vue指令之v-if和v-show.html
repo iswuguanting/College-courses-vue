@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue指令之v-if和v-show</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="toggle" @click="toggle" />
+			<!--共同点：都是用来显示和隐藏元素的,值为true显示元素，值为false隐藏元素-->
+			<!--区别：
+				 1.v-if直接操作dom元素，直接删除或者添加，v-show只是添加了一个样式把元素隐藏起来，元素还存在页面中
+				 2.v-if有较高的切换性能消耗,v-show有较高的初始渲染消耗
+				 3.如果元素涉及到频繁的切换,最好不要使用v-if，而是推荐使用v- show
+				       如果元素可能永远也不会被显示出来被用户看到，则推荐使用v-if
+				-->
+			<h1 v-if="flag">vue中v-if的h1标签</h1>
+			<h1 v-show="flag">vue中v-show的h1标签</h1>
+		</div>
+		<script>
+			var vm=new Vue({
+				el: '#app',
+				data: {
+					flag:false
+				},
+				methods: {
+					toggle(){
+						this.flag=!this.flag
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

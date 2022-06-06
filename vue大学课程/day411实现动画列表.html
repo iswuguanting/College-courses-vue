@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<style type="text/css">
+			li{
+				border: 1px dashed #999;
+				margin: 5px;
+				padding: 5px;
+				line-height: 35px;
+				font-size: 16px;
+				width: 100%;
+			}
+			li:hover{
+				transition: all 0.8s ease;
+				background-color: green;
+			}
+			.v-enter,
+			.v-leave-to{
+				opacity: 0;
+				transform: translateY(80px);
+			}
+			.v-enter-active,
+			.v-leave-active{
+				transition: all 0.8s ease;
+			}
+			.v-move{
+				transition: all 0.8s ease;
+			}
+			.v-leave-active{
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<label>id:
+			     <input type="text" v-model="id" />
+			</label>
+			<label>name:
+			     <input type="text" v-model="name" />
+			</label>
+			<input type="button" value="添加用户" @click="addUser" />
+			<!--<ul>-->
+				<transition-group appear tag="ul">
+					<!--渲染动画列表不能用transition要用transition-group,如果要渲染动画列表，必须要为每个列表元素绑定key-->
+					<li v-for="(user,index) in userList" :key="user.id" @click="del(index)">
+						{{user.id}}--{{user.name}}
+					</li>
+				</transition-group>
+			<!--</ul>-->
+		</div>
+		<script>
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					id: '',
+					name: '',
+					userList:[
+					    {id:1,name:'赵云'},
+					    {id:2,name:'马超'},
+					    {id:3,name:'黄忠'},
+					    {id:4,name:'关羽'}
+					]
+				},
+				methods:{
+					addUser(){
+						this.userList.push({id:this.id,name:this.name});
+						this.id=this.name='';
+					},
+					del(index){
+						this.userList.splice(index,1);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

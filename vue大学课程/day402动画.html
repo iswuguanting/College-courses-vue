@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>动画过渡</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<style>
+			.v-enter,.v-leave-to{
+				opacity: 0;
+				transform: translateX(500px);
+			}
+			.v-leave,
+			.v-enter-to{
+				transition: all 2.8s ease;
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="toggle" @click="falg=!falg" />
+			<!--要有动画效果的标签，必须要用transition标签包裹起来,vue里面定义的-->
+			<transition>
+				<h1 v-if="falg">20软件技术6班陈怡红</h1>
+			</transition>
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el: '#app',
+				data: {
+					falg:false
+				},
+				methods:{}
+			})
+		</script>
+	</body>
+</html>

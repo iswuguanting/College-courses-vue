@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue绑定style</title>
+		<script src="js/vue-2.4.0.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--<h1 style="color: red;font-weight: 200;">20软件技术6班</h1>-->
+			<!--对象的值用单引号引起来,对象的属性里面如果有其它符号它的属性最好用单引号引起来-->
+			<!--<h1 :style="{'color':'red','font-weight':'200'}">20软件技术6班</h1>-->
+			<!--先在data里面声明对象，再在元素中绑定对象-->
+			<h1 :style="styleObj">20软件技术6班</h1>
+			<!--如果在要使用data里面的多个对象，用数组绑定就可以了-->
+		    <!--<h1 :style="[styleObj,styleObj2]">20软件技术6班</h1>-->
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el: '#app',
+				data: {
+					styleObj:{'color':'blue','font-weight':'200'},
+					styleObj2:{'font-style':'italic'}
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--第一个文本框输入姓氏，第二个文本框输入名字，第三个文本框得到姓名-->
+			<input type="text" v-model="firtStr" @keyup="getFinalName"/>+
+			<input type="text" v-model="lastStr" @keyup="getFinalName"/>=
+			<input type="text" v-model="finalName"/>
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					firtStr:'',
+					lastStr:'',
+					finalName:''
+				},
+				methods:{
+					getFinalName(){
+						this.finalName=this.firtStr+this.lastStr;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

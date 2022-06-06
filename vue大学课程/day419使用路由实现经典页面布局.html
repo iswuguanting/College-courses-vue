@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>路由实现经典页面布局</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<script type="text/javascript" src="js/vue-router-3.0.1.js" ></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.header{
+				background-color: yellowgreen;
+				height: 200px;
+			}
+			.containers{
+				display: flex;
+				height: 600px;
+			}
+			.left{
+				background-color: darksalmon;
+				flex: 2;
+			}
+			.main{
+				background-color: aqua;
+				flex: 8;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<router-view></router-view>
+			<div class="containers">
+				<router-view name="left"></router-view>
+				<router-view name="main"></router-view>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var header={
+				template:'<h1 class="header">头部部分</h1>'
+			}
+			var leftBox={
+				template:'<h1 class="left">左边部分</h1>'
+			}
+			var mainBox={
+				template:'<h1 class="main">主体部分</h1>'
+			}
+			var router=new VueRouter({
+				routes:[
+					{path:'/',components:{
+						'default':header,
+					   	'left':leftBox,
+					   	'main':mainBox
+						}
+					}
+					/*{path:'/',component:header},
+					{path:'/left',component:leftBox},
+					{path:'/main',component:mainBox}*/
+				]
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{},
+				methods:{},
+				router
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue的生命周期</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" style="width: 500px;" v-model="msg" />
+			<h2 id="h2">{{msg}}</h2>
+		</div>
+		<script type="text/javascript">
+			var  vm=new Vue({
+				el: '#app',
+				data:{
+					msg:'软件技术6班'
+				},
+				methods:{
+					show(){
+						console.log("这是methods里面的show方法")
+					}
+				},
+				beforeCreate(){  //实例刚在内存中被创建出来,此时,还没有初始化好data和methods属性
+					console.log('beforeCreate:'+this.msg)
+//					this.show();
+				},
+				created(){   //实例已经在内存中创建OK ,此时data和methods已经创建OK ,此时还没有开始编译模板
+					//如果我们想调用data和methods数据和方法，至少要在created方法加载完成才能调用
+					console.log('created'+this.msg)
+					this.show();
+				},
+				beforeMount(){  //页面的编译工作已经完成，但是编译后的内容只存在于浏览器的内存中，并没有渲染到页面中
+					console.log('beforeMount方法，页面中的msg:'+document.getElementById("h2").innerText);
+					console.log('beforeMount方法，data里面的msg:'+this.msg);
+				},
+				mounted(){   //此时,已经将编译好的模板,挂载到了页面指定的容器中显示
+					console.log('mounted方法,页面中的msg:'+document.getElementById("h2").innerText);
+					console.log('mounted方法,data里面的msg:'+this.msg);
+				},
+				beforeUpdate(){  //这个时候data里面的数据是最新的，但是页面中的数据还是旧的
+					console.log('beforeUpdate方法,页面中的msg:'+document.getElementById("h2").innerText);
+					console.log('beforeUpdate方法,data里面的msg:'+this.msg);
+				},
+				updated(){   //data中的状态值和界面上显示的数据，都已经完成了更新,界面已经被重新渲染好了，页面中的数据和data中的数据已经同步了
+					console.log('updated方法,页面中的msg:'+document.getElementById("h2").innerText);
+					console.log('updated方法,data里面的msg:'+this.msg);
+				},
+				beforeDestroy(){ //beforeDestroy :实例销毁之前调用。在这一步,实例仍然完全可用。
+					console.log('beforeDestroy:'+this.msg)
+					this.show();
+				},
+				destroyed(){//Vue实例销毁后调用。调用后, Vue实例指示的所有东西都会解绑定,所有的事件监听器会被移除,所有的子实例也会被销毁
+					console.log('destroyed:'+this.msg)
+					this.show();
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>第一个vue</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<style type="text/css">
+			[v-cloak]{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!--v-cloak:解决插值表达式闪烁问题-->
+			<p v-cloak>+++++{{msg}}--------</p>
+			<!--v-text:解决插值表达式闪烁问题，它会将原先的内容覆盖掉-->
+			<p v-text="msg">======</p>
+			<p v-html="msg2"></p>
+			<!--v-bind:绑定属性，将属性后面的值当成js表达式解析,可以简写成:-->
+			<input type="button" value="按钮" :title="myTitle+'软件技术6班2'" />
+			<!--v-on:事件的绑定机制-->
+			<input type="button" value="戳他" v-on:click="sayHello" />
+			<!--v-on:事件的绑定机制,可以简写成@-->
+			<input type="button" value="戳他2" @click="sayHello2" />
+			<!--<p><h1>这是一个具有h1标签的字体</h1></p>-->
+		</div>
+		<script>
+			var vm=new Vue({
+				el: '#app',//指定我们要操作哪一块具体的区域
+				data: {
+					msg: '第一个vue',
+					msg2: '<h1>这是一个具有h1标签的字体</h1>',
+					myTitle: 'data里面的myTitle'
+				},
+				methods:{    //methods：用来定义方法,里面多个方法之间用逗号隔开
+					sayHello:function(){
+						alert('软件技术6班');
+					},
+					sayHello2(){
+						alert('软件技术6班2');
+					}
+				}
+			})
+/*			document.getElementById("btn").onclick=function(){
+				alert('你戳到我了！');
+			}*/
+		</script>
+	</body>
+</html>

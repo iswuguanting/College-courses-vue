@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>animate</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<link rel="stylesheet" href="css/animate.css" />
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="播放动画"  @click="flag=!flag"/>
+			<!--<transition enter-active-class="animated rollIn" leave-active-class="animated bounceOut" :duration="1000">
+				<h2 v-show="flag">这是一个h2标签</h2>
+			</transition>-->
+			<transition enter-active-class="animated fadeIn" leave-active-class="animated bounceOut" :duration="{enter:300,leave:800}">
+				<h2 v-show="flag">这是一个h2标签</h2>
+			</transition>
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el: '#app',
+				data: {
+					flag:false
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>

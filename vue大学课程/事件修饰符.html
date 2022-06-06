@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>事件修饰符</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<style type="text/css">
+			.innerDiv {
+				height: 150px;
+				background-color: aqua;
+			}
+			.outerDiv{
+				padding: 30px;
+				background-color: pink;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!--<div class="innerDiv" @click="innerDivClick">
+				.stop阻止冒泡
+				<input type="button" value="戳他" @click.stop="btnClick" />
+			</div>-->
+			<!--.prevent 阻止默认事件-->
+			<!--<a href="http://www.baidu.com" @click.prevent="linkPrevent">百度一下</a>-->
+			<!--.capture 添加事件侦听器时使用事件捕获模式-->
+<!--			<div class="innerDiv" @click.capture="innerDivClick">
+				<input type="button" value="戳他" @click="btnClick" />
+			</div>-->
+			<!--<div class="outerDiv" @click="outerDivClick">
+				.self只当事件在该元素本身(比如不是子元素)触发时触发回调,它只阻止它本省的冒泡，不阻止其它元素的冒泡
+				<div class="innerDiv" @click.self="innerDivClick">
+					<input type="button" value="戳他" @click="btnClick" />
+				</div>
+			</div>-->
+			<!--<div class="outerDiv" @click="outerDivClick">
+				.self只当事件在该元素本身(比如不是子元素)触发时触发回调,它只阻止它本省的冒泡，不阻止其它元素的冒泡
+				<div class="innerDiv" @click="innerDivClick">
+					<input type="button" value="戳他" @click.stop="btnClick" />
+				</div>
+			</div>-->
+			<!--.once事件只触发一次-->
+			<a href="http://www.baidu.com" @click.once.prevent="linkPrevent">百度一下</a>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {},
+				methods: {
+					innerDivClick() {
+						console.log("innerDivClick点击事件");
+					},
+					btnClick() {
+						console.log("btnClick点击事件");
+					},
+					linkPrevent() {
+						console.log("阻止连接跳到百度一下");
+					},
+					outerDivClick(){
+						console.log("outerDivClick点击事件");
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

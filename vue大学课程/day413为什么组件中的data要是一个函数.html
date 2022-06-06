@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>定义私有组件</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<coml></coml>
+			<hr />
+			<coml></coml>
+			<hr />
+			<coml></coml>
+		</div>
+		<template id="templ">
+			<div>
+				<input type="button" value="+1" @click="addOne" />
+				<h2>{{count}}</h2>
+			</div>
+		</template>
+		<script type="text/javascript">
+//			var countobj={count:0}
+			Vue.component('coml',{
+				//注意：组件里面只能有一个根元素
+				template:'#templ',
+				data:function(){
+					return {count:0}
+				},
+				methods:{
+					addOne(){
+						this.count++
+					}
+				}
+			})
+			var vm=new Vue({
+				el:'#app',
+				data: {},   
+				methods:{},
+			})
+		</script>
+	</body>
+</html>

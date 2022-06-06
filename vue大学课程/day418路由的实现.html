@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>前段路由的实现</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<!--1.将路由的js文件引入页面中-->
+		<script type="text/javascript" src="js/vue-router-3.0.1.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--<a href="#/login">登录</a>
+			<a href="#/register">注册</a>-->
+			<!--router-link会默认在访问路径前面加#，并且会自动将router-link转化成一个超链接-->
+			<router-link to="/login" tag="span">登录</router-link>
+			<router-link to="/register">注册</router-link>
+			<!--4.使用router-view在页面实现路由的显示-->
+			<router-view></router-view>
+		</div>
+		<script type="text/javascript">
+			var login={
+				template: '<h2>登录模板</h2>'
+			}
+			var register={
+				template: '<h2>注册模板</h2>'
+			}
+/*			Vue.component('LOGIN',{
+				template:'<h2>20软件技术6班</h2>'
+			})*/
+			//2.创建路由实例
+			var routeObj=new VueRouter({
+				//route:路由匹配规则
+				routes:[   //路由的匹配规则
+				    //每个路由匹配规则都有两个属性:path:路由的访问路径  component：模板对象
+				    //component应用模板对象的时候不需要单引号引起来,redirect重定向，重定向的是一个地址，是一个字符串，所以要用单引号引起来
+				   {path:'/',redirect:'/login'},
+				   {path:'/login',component:login},
+				   {path:'/register',component:register}
+				]
+			})
+			var vm=new Vue({
+				el:'#app',
+				data:{},
+				methods:{},
+				//3.在vue实例中创建路由的引用对象
+				router:routeObj
+			})
+		</script>
+	</body>
+</html>

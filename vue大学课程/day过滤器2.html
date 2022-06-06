@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue-2.4.0.js"></script>
+		<link rel="stylesheet" href="css/bootstrap-3.3.7.css" />
+	</head>
+	<body>
+		<div id="app" class="form-inline">
+			<label>请输入：
+			    <input type="text" class="form-control" style="width: 500px;" v-model="inputStr" />
+			</label>
+			<h3>{{inputStr}}</h3>
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data: {
+					inputStr:'分分钟'
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>

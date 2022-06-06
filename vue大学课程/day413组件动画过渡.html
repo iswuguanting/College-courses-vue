@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件切换</title>
+		<script type="text/javascript" src="js/vue-2.4.0.js" ></script>
+		<style type="text/css">
+			.v-enter,
+			.v-leave-to{
+				opacity: 0;
+				transform: translateX(80px);
+			}
+			.v-enter-active,
+			.v-leave-active{
+				transition: all 0.8s ease; 
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="登录" @click="tName='login'" />
+			<input type="button" value="注册" @click="tName='regiester'" />
+			<!--component是vue中特有的用来展示组件的,is是用v-bind绑定，用来指定要展示组件的名称-->
+			<!--如果要实现组件切换的动画效果，直接用transition将component包裹起来就可以了-->
+			<!--mode用来控制组件切换的模式，默认in-out先进来再出去，可以设置为out-in先出去，再进来-->
+			<transition mode="out-in">
+				<component :is="tName"></component>
+			</transition>
+		</div>
+		<template id="doLogin">
+			<h2>登录组件</h2>
+		</template>
+		<template id="doRegiester">
+			<h2>注册组件</h2>
+		</template>
+		<script type="text/javascript">
+			Vue.component('login',{
+				template: '#doLogin'
+			})
+			Vue.component('regiester',{
+				template: '#doRegiester'
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					tName:'login'
+				},
+				methods:{}
+			})
+		</script>
+	</body>
+</html>
